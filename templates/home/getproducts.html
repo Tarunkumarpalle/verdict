@@ -1,14 +1,14 @@
 
-{% extends 'home/base.html ' %}
+{% extends 'home/base.html' %}
 
 {% block content %}
 
 <h1 class="text-bold text-center mt-5" style="font-weight: 700 ">{{Brand}} Reviews</h1>
- 
+
 {% if reviews %}
 <div class="container">
 <table class="table ">
-   
+
    <thead>
      <tr>
        <th scope="col">S.No</th>
@@ -28,7 +28,7 @@
  </table>
 </div>
 {% for post in reviews %}
-<div class="row container m-5">
+<div class=" container reviewslist">
     <div class="col-md-12 margin_top40">
        <div class="row d_flex">
           <div class="col-md-5">
@@ -39,7 +39,7 @@
           <div class="col-md-7">
              <div class="news_text">
                 <h3>{{post.brand}} - {{post.product}} ({{post.rating}} star )</h3>
-                <span>{{post.date}}</span> 
+                <span>{{post.date}}</span>
                 <div class="date_like">
 
                    <span>By </span><span class="pad_le">{{post.name}}</span>
@@ -49,7 +49,7 @@
              </div>
           </div>
        </div>
-    </div> 
+    </div>
    </div>
    {% endfor %}
    {% else %}

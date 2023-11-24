@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&&et4-a6f)=%%joh$1135kog2tm%ra-8m&bt@)i@h^p=1l(r$w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL=True
 # Application definition
@@ -37,7 +37,6 @@ CORS_ALLOWED_ORIGINS = [
 INSTALLED_APPS = [
     'home',
     'crispy_forms',
-    'crispy_bootstrap4',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -132,6 +131,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS  = [
     os.path.join(BASE_DIR, 'static')
 ]
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 # Base url to serve media files
 MEDIA_URL = '/images/'
 # Path where media is stored

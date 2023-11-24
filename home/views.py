@@ -28,8 +28,8 @@ def login(req):
     messages.info(req,'Incorrect credentials')
     return render(req, 'home/login.html',{
         'logged' : 0
-        })   
-    
+        })
+
 def signup(req):
     if req.method=='GET':
         return render( req, 'home/signup.html')
@@ -40,10 +40,10 @@ def signup(req):
          return render( req, 'home/signup.html')
     try:
         email2 = User.objects.get(username=email)
-    except :    
+    except :
         email2 = None
-    
-    if email2 is not None:  
+
+    if email2 is not None:
          return redirect('/login/')
     user = User.objects.create_user(username=email,password=password)
     user.save()
@@ -52,8 +52,8 @@ def signup(req):
 
 def logout(request):
     del request.session['message']
-    return redirect('/')   
-    
+    return redirect('/')
+
 def home(req):
     return render(req,'home/index.html')
 
@@ -79,8 +79,8 @@ def forms(request):
         'category' : category
     })
 
-def review(request):  
-    # review = ReviewForm()   
+def review(request):
+    # review = ReviewForm()
     brands = Brand.objects.all()
     product = Product.objects.all()
     category = Category.objects.all()
@@ -128,24 +128,24 @@ def custom_review(req,cat):
             category = Category.objects.get(name=cat)
             # print(list(req.POST.items()))
             # print(list(req.FILES.items()))
-            try: #if list(req.FILES.items()) == []: 
+            try: #if list(req.FILES.items()) == []:
                 image = req.FILES['image']
             except:
-                image = ''  
+                image = ''
             obj = Electronic_Review(name=name, mail = email,category = category,brand=brand,product=product,rating=rating,review=review,image=image)
             obj.save()
         else:
                 name= req.POST['name']
                 email= req.POST['email']
                 city= City.objects.get(id=req.POST['city'])
-                place= Place.objects.get(id=req.POST.get("theInputGroup")) 
+                place= Place.objects.get(id=req.POST.get("theInputGroup"))
                 rating= req.POST['rating']
                 review= req.POST['review']
                 category = Category.objects.get(name=cat)
-                try: #if list(req.FILES.items()) == []: 
+                try: #if list(req.FILES.items()) == []:
                     image = req.FILES['image']
                 except:
-                    image = ''  
+                    image = ''
                 obj = Place_Review(name=name, mail = email,category = category,city=city,place=place,rating=rating,review=review,image=image)
                 obj.save()
         return redirect('/review',{
@@ -231,7 +231,7 @@ def getproducts(req, brand):
     products = Product.objects.filter(brand = brands[0].id)
     product_ids = [ i.id for i in products]
     # print(product_ids)
-    
+
     reviews = []
     prod_avg_rating = {}
     for i in product_ids:
@@ -244,7 +244,7 @@ def getproducts(req, brand):
                 name = j.product
                 if j.image=='':
                     j.image = 'reviews/default.png'
-                j.image  = 'images/'+str(j.image) 
+                j.image  = 'images/'+str(j.image)
                 s += j.rating
                 count+=1
             prod_avg_rating[name]  = round(s/count,1)
@@ -252,13 +252,13 @@ def getproducts(req, brand):
             for k in item:
                 reviews.append(k)
     # print(list(reviews))
-    
+
     return render(req,'home/getproducts.html',{
         'reviews' : reviews,
         'Brand' : brand,
         'prod_avg_rating' : prod_avg_rating
     })
-    
+
 def getplaces(req, city):
     # print(city)
     cities = City.objects.get_or_create(name=city)
@@ -273,10 +273,10 @@ def getplaces(req, city):
             count = 0
             name=''
             for j in item:
+                name = j.place
                 if j.image=='':
-                    name = j.place
                     j.image = 'reviews/default.png'
-                j.image  = 'images/'+str(j.image) 
+                j.image  = 'images/'+str(j.image)
                 s += j.rating
                 count+=1
             print(item)
